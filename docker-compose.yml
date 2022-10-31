@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+
+  backend:
+    restart: unless-stopped
+    build: ./backend/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000
+    environment:
+      - LINGVANEX_API_KEY=${LINGVANEX_API_KEY}
+
+  frontend:
+    build: ./frontend
+    volumes:
+      - .docker-volumes/frontend/dist:/frontend/dist
+
+  nginx:
+    depends_on:
+      - backend
+      - frontend
+    restart: unless-stopped
+    image: nginx:1.23.2-alpine
+    ports:
+      - ${LINGVANEX_PORT}:80
+    volumes:
+      - ./nginx/conf:/etc/nginx/conf.d
+      - .docker-volumes/frontend/dist:/frontend/dist
+
