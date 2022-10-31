@@ -12,7 +12,6 @@ Then edit .env file to set up application port and translation API key.
 Finally:
 
 ```sh
-cp .env.example .env
 docker-compose up -d --build
 ```
 
