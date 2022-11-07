@@ -73,7 +73,7 @@ export default {
           return;
         }
         this.loading = true;
-        axios.post('http://127.0.0.1/api', {
+        axios.post('/api', {
           "content": this.source,
           "lang_to": this.langTo,
           "lang_from": this.langFrom
